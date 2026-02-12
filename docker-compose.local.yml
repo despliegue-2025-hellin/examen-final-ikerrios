@@ -9,7 +9,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - ./api-actors/sql/local/:/docker-entrypoint-initdb.d/init.sql
+      - ./api-actors/sql/local/init.sql:/docker-entrypoint-initdb.d/init.sql
   
   db_movies: 
     image: postgres:16
@@ -21,7 +21,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./api-movies/sql/local/:/docker-entrypoint-initdb.d/init.sql
+      - ./api-movies/sql/local/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   web_stranger:
     build: 
