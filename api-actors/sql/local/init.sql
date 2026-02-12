@@ -3,13 +3,17 @@
 -- Base de datos: actors_db
 -- =============================================
 
+CREATE DATABASE IF NOT EXISTS actors_db;
+
+-- Usar la base de datos
+USE actors_db;
+
 CREATE TABLE IF NOT EXISTS actors (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     character_name VARCHAR(200),
     movie_id BIGINT NOT NULL
 );
-
 -- Actores de "El Algoritmo Perdido" (movie_id = 1)
 INSERT INTO actors (name, character_name, movie_id) VALUES
 ('Brahim Martinez', 'Neo Turing', 1),

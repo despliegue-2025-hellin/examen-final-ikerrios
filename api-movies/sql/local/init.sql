@@ -3,6 +3,11 @@
 -- Base de datos: movies_db
 -- =============================================
 
+CREATE DATABASE IF NOT EXISTS movies_db;
+
+-- Usar la base de datos
+USE movies_db;
+
 CREATE TABLE IF NOT EXISTS movies (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(200) NOT NULL,

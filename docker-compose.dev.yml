@@ -1,0 +1,57 @@
+services:
+  db_movies: 
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+      POSTGRES_DB: movies_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./api-movies/sql/dev/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  db_actors: 
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+      POSTGRES_DB: actors_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./api-actors/sql/dev/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app_movies:
+    build: 
+      context: api-movies
+      dockerfile: Dockerfile
+    container_name: api_movies
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8081:8080"
+
+  #app_actors:
+   # build: 
+    #  context: api-actors
+     # dockerfile: Dockerfile
+    #container_name: api_actors
+    #environment:
+     # SPRING_PROFILES_ACTIVE: dev
+    #ports:
+     # - "8082:8080"
+
+  frontend:
+    build: 
+      context: frontend-movies
+      dockerfile: Dockerfile
+    container_name: web
+    environment:
+      API_MOVIES_URL: app_movies
+      API_ACTORS_URL: app_actors
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend-movies:/var/www/html
